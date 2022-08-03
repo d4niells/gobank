@@ -55,16 +55,16 @@ func TestGetTransfer(t *testing.T) {
 func TestListTransfers(t *testing.T) {
 	account1 := createRandomAccount(t)
 	account2 := createRandomAccount(t)
-	
+
 	for i := 0; i < 10; i++ {
 		createRandomTransfer(t, account1, account2)
 	}
 
 	arg := ListTransfersParams{
 		FromAccountID: account1.ID,
-		ToAccountID: account2.ID,
-		Limit: 5,
-		Offset: 5,
+		ToAccountID:   account2.ID,
+		Limit:         5,
+		Offset:        5,
 	}
 
 	transfers, err := testQueries.ListTransfers(context.Background(), arg)
@@ -77,13 +77,13 @@ func TestListTransfers(t *testing.T) {
 	}
 }
 
- func TestDeleteTransfer(t *testing.T) {
- 	account1 := createRandomAccount(t)
- 	account2 := createRandomAccount(t)
- 	transfer1 := createRandomTransfer(t, account1, account2)
+func TestDeleteTransfer(t *testing.T) {
+	account1 := createRandomAccount(t)
+	account2 := createRandomAccount(t)
+	transfer1 := createRandomTransfer(t, account1, account2)
 
- 	err := testQueries.DeleteTransfer(context.Background(), transfer1.ID)
- 	require.NoError(t, err)
+	err := testQueries.DeleteTransfer(context.Background(), transfer1.ID)
+	require.NoError(t, err)
 
 	transfer2, err := testQueries.GetTransfer(context.Background(), transfer1.ID)
 	require.Error(t, err)
